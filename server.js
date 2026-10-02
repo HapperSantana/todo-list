@@ -5,7 +5,7 @@ const path = require("path");
 const db = require("./database");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
@@ -244,11 +244,23 @@ app.delete("/api/tareas/:id", (req, res) => {
 // Iniciar servidor
 // ==========================================
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
     console.log("-----------------------------------");
     console.log("Servidor iniciado correctamente");
-    console.log(`http://localhost:${PORT}`);
+    console.log(`Puerto: ${PORT}`);
     console.log("-----------------------------------");
+
+});
+
+// ==========================================
+// Ruta para verificar si el servidor está funcionando
+// ==========================================
+app.get("/prueba", (req, res) => {
+
+    res.json({
+        status: "OK",
+        mensaje: "Servidor funcionando correctamente"
+    });
 
 });
